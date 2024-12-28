@@ -1,46 +1,105 @@
 "use client";
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import Editor from "@monaco-editor/react";
+import { Draft07 } from "json-schema-library";
+import { FiCopy } from "react-icons/fi";
+import { ThemeContext } from "@/context/theme-context";
 
 const Playground = () => {
-  const [jsonCode, setJSONCode] = React.useState<string | undefined>("");
+  const [json, setJson] = React.useState<string | undefined>(`{}`);
+  const [outputCode, setOutputCode] = React.useState<string | undefined>("");
+  const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
+  const { theme } = useContext(ThemeContext);
+
   const options = {
-    selectOnLineNumbers: true,
     fontSize: "14px",
+    scrollBeyondLastLine: false,
+    minmap: false,
+    lineNumbersMinChars: 3,
+    tabSize: 2,
+    padding: {
+      top: "6px",
+      bottom: "6px",
+    },
   };
 
-  function handleEditorChange(value: string | undefined) {
-    setJSONCode(value);
-  }
+  const handleEditorChange = (value: string | undefined) => {
+    setJson(value);
+  };
+
+  const handleConvert = () => {
+    const jsonSchema = new Draft07();
+    const schema = jsonSchema.createSchemaOf(JSON.parse(json!));
+    setOutputCode(JSON.stringify(schema, null, 2));
+  };
+
+  useEffect(() => {
+    if (isCopiedToClipboard) {
+      setTimeout(() => {
+        setIsCopiedToClipboard(false);
+      }, 2000);
+    }
+  }, [isCopiedToClipboard]);
 
   return (
-    <div className="grid gap-4 grid-cols-[1fr_100px_1fr]">
-      <div className="bg-blue-100 min-h-[80vh] rounded-md">
-        <h2 className="text-xl text-black py-2 pl-8">JSON</h2>
-        <Editor
-          height="80vh"
-          value={jsonCode}
-          defaultLanguage="json"
-          theme="vs-dark"
-          options={options}
-          className="rounded-md"
-          onChange={handleEditorChange}
-        />
+    <div className="mt-6">
+      <div className="grid gap-4 grid-cols-[1fr_1fr]">
+        <div className="min-h-[50vh]">
+          <h2 className="text-md text-teal-600 font-semibold mb-1">JSON</h2>
+          <Editor
+            height="50vh"
+            value={json}
+            defaultLanguage="json"
+            theme={theme === "dark" ? "vs-dark" : "light"}
+            options={options}
+            loading={<span className="loading loading-ring loading-lg"></span>}
+            onChange={handleEditorChange}
+            className="rounded-md"
+          />
+        </div>
+        <div className="p-0">
+          <div className="flex justify-between items-center">
+            <h2 className="text-md text-teal-600 font-semibold mb-1">
+              JSON Schema
+            </h2>
+            {outputCode && (
+              <>
+                <div
+                  className="tooltip cursor-pointer text-teal-600"
+                  data-tip={
+                    isCopiedToClipboard ? "Copied" : "Copy to clipboard"
+                  }
+                  onClick={() => {
+                    navigator.clipboard.writeText(outputCode!);
+                    setIsCopiedToClipboard(true);
+                  }}
+                >
+                  <FiCopy size={16} />
+                </div>
+              </>
+            )}
+          </div>
+          <Editor
+            height="50vh"
+            value={outputCode}
+            defaultLanguage="json"
+            theme={theme === "dark" ? "vs-dark" : "light"}
+            options={{
+              ...options,
+              readOnly: true,
+            }}
+            loading={<span className="loading loading-ring loading-lg"></span>}
+            className="rounded-md"
+          />
+        </div>
       </div>
-      <div className="flex justify-center items-center">
-        <button className="btn btn-primary">Convert</button>
-      </div>
-      <div className="bg-gray-100 p-0 rounded-md">
-        <h2 className="text-xl text-black py-2 pl-8">JSON Schema</h2>
-        <Editor
-          height="80vh"
-          value={jsonCode}
-          defaultLanguage="json"
-          theme="vs-dark"
-          options={options}
-          className="rounded-md"
-          onChange={handleEditorChange}
-        />
+      <div className="mt-4 flex justify-center items-center">
+        <button
+          className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600"
+          onClick={handleConvert}
+        >
+          Convert To JSON Schema
+        </button>
       </div>
     </div>
   );
