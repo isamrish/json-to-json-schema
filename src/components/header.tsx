@@ -12,7 +12,7 @@ const Header = () => {
         <Image src="/json-schema-logo.png" width={200} height={80} alt="Logo" />
         <div
           className="cursor-pointer bg-teal-50 border-teal-400 border rounded"
-          onClick={toggleTheme as any}
+          onClick={toggleTheme}
         >
           {theme === "dark" ? (
             <CiLight className="text-3xl" />
