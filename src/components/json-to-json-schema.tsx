@@ -114,17 +114,18 @@ const JsonToJsonSchema = () => {
           />
         </div>
       </div>
-      <div className="mt-6 flex justify-center items-center">
+      <div className="mt-6 flex justify-start items-center">
         <button
           className="btn btn-primary bg-teal-600 text-white border-teal-600 hover:bg-teal-600 hover:border-teal-600 min-h-fit h-[40px]"
           onClick={handleConvert}
-          disabled={!isJsonString(json!)}
+          disabled={!isJsonString(json!) || json?.trim() === ""}
         >
           Convert To JSON Schema
         </button>
         <button
           className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600  min-h-fit h-[40px] ml-3"
           onClick={handleReset}
+          disabled={json?.trim() === ""}
         >
           Reset
         </button>
