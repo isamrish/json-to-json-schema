@@ -25,3 +25,8 @@ body {
 .monaco-editor .overflow-guard {
   border-radius: 4px;
 }
+
+.tabs-boxed {
+  padding: 0.75rem;
+  background-color: #f3f5f2;
+}
