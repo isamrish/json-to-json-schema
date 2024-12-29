@@ -19,7 +19,7 @@ export default {
     themes: [
       {
         solardrift: {
-          primary: "#2dd4bf",
+          primary: "#0d9488",
           secondary: "#7dd3fc",
           accent: "#a5f3fc",
           neutral: "#d1d5db",
