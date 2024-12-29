@@ -16,13 +16,16 @@ const Playground = () => {
   const options = {
     fontSize: "14px",
     scrollBeyondLastLine: false,
-    minmap: false,
+    minimap: {
+      enabled: false,
+    },
     lineNumbersMinChars: 3,
     tabSize: 2,
     padding: {
       top: "6px",
       bottom: "6px",
     },
+    renderLineHighlight: "none",
   };
 
   const handleEditorChange = (value: string | undefined) => {
@@ -61,7 +64,7 @@ const Playground = () => {
             options={options}
             loading={<span className="loading loading-ring loading-lg"></span>}
             onChange={handleEditorChange}
-            className="rounded-md"
+            className="rounded-md border"
           />
         </div>
         <div className="p-0">
@@ -105,7 +108,7 @@ const Playground = () => {
               readOnly: true,
             }}
             loading={<span className="loading loading-ring loading-lg"></span>}
-            className="rounded-md"
+            className="rounded-md border"
           />
         </div>
       </div>

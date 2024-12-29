@@ -1,11 +1,10 @@
 const isJsonString = (str: string) => {
-  if (!str) {
+  if (!str.trim()) {
     return false;
   }
   try {
     JSON.parse(str);
-  } catch (e) {
-    console.error(e);
+  } catch {
     return false;
   }
   return true;

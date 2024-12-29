@@ -24,5 +24,4 @@ body {
 .monaco-editor,
 .monaco-editor .overflow-guard {
   border-radius: 6px;
-  border: 1px solid teal;
 }
