@@ -23,5 +23,5 @@ body {
 
 .monaco-editor,
 .monaco-editor .overflow-guard {
-  border-radius: 6px;
+  border-radius: 4px;
 }

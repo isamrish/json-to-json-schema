@@ -64,7 +64,9 @@ const JsonToJsonSchema = () => {
             options={options}
             loading={<span className="loading loading-ring loading-lg"></span>}
             onChange={handleEditorChange}
-            className="rounded-md border"
+            className={`rounded-md border-2 ${
+              json?.trim() === "" || isJsonString(json!) ? "" : "border-red-500"
+            }`}
           />
         </div>
         <div className="p-0">
@@ -108,7 +110,7 @@ const JsonToJsonSchema = () => {
               readOnly: true,
             }}
             loading={<span className="loading loading-ring loading-lg"></span>}
-            className="rounded-md border"
+            className="rounded-md border-2"
           />
         </div>
       </div>
