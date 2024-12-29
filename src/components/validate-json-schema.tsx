@@ -2,13 +2,7 @@ import React, { useContext } from "react";
 import Editor from "@monaco-editor/react";
 import { ThemeContext } from "@/context/theme-context";
 import { isJsonString } from "@/utils";
-import {
-  Draft2019,
-  Draft07,
-  Draft,
-  JsonError,
-  JsonSchema,
-} from "json-schema-library";
+import { Draft2019, JsonError, JsonSchema } from "json-schema-library";
 
 const ValidateJsonSchema = () => {
   const [code, setCode] = React.useState("");
