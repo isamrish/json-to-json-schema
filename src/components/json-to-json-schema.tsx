@@ -38,7 +38,7 @@ const JsonToJsonSchema = () => {
     setOutputCode(JSON.stringify(schema, null, 2));
   };
 
-  const handleReset = () => {
+  const handleClear = () => {
     setJson("");
     setOutputCode("");
   };
@@ -124,10 +124,10 @@ const JsonToJsonSchema = () => {
         </button>
         <button
           className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600  min-h-fit h-[40px] ml-3"
-          onClick={handleReset}
+          onClick={handleClear}
           disabled={json?.trim() === ""}
         >
-          Reset
+          Clear
         </button>
       </div>
     </div>
