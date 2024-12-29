@@ -3,6 +3,7 @@ import React, { useEffect, useContext } from "react";
 import Editor from "@monaco-editor/react";
 import { Draft07 } from "json-schema-library";
 import { FiCopy } from "react-icons/fi";
+import { AiOutlineClear } from "react-icons/ai";
 import { ThemeContext } from "@/context/theme-context";
 import { isJsonString } from "@/utils";
 
@@ -69,7 +70,16 @@ const Playground = () => {
               JSON Schema
             </h2>
             {outputCode && (
-              <>
+              <div>
+                <div
+                  className="tooltip cursor-pointer text-teal-600 mr-4"
+                  data-tip="Clear"
+                  onClick={() => {
+                    setOutputCode("");
+                  }}
+                >
+                  <AiOutlineClear size={22} />
+                </div>
                 <div
                   className="tooltip cursor-pointer text-teal-600"
                   data-tip={
@@ -80,9 +90,9 @@ const Playground = () => {
                     setIsCopiedToClipboard(true);
                   }}
                 >
-                  <FiCopy size={16} />
+                  <FiCopy size={18} />
                 </div>
-              </>
+              </div>
             )}
           </div>
           <Editor
