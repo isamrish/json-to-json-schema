@@ -5,17 +5,19 @@ const PlayGround = () => {
   const [tab, setTab] = React.useState("jsontojsonschema");
   return (
     <>
-      <div role="tablist" className="tabs tabs-lifted max-w-full block">
+      <div role="tablist" className="tabs tabs-boxed max-w-full block">
         <a
           role="tab"
-          className={`tab  max-w-[200px] border-0 ${
-            tab === "jsontojsonschema" ? "tab-active" : ""
+          className={`tab max-w-[200px] border-0 ${
+            tab === "jsontojsonschema" ? "tab-active " : ""
           }`}
           onClick={() => setTab("jsontojsonschema")}
         >
           <p
             className={`mb-0 ${
-              tab === "jsontojsonschema" ? "font-black" : "font-normal"
+              tab === "jsontojsonschema"
+                ? "font-black text-white"
+                : "font-normal"
             }`}
           >
             JSON TO JSON SCHEMA
@@ -32,7 +34,7 @@ const PlayGround = () => {
         >
           <p
             className={`mb-0 ${
-              tab === "validateschema" ? "font-black" : "font-normal"
+              tab === "validateschema" ? "font-black text-white" : "font-normal"
             }`}
           >
             VALIDATE SCHEMA

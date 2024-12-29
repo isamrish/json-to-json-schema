@@ -15,4 +15,21 @@ export default {
     },
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        solardrift: {
+          primary: "#2dd4bf",
+          secondary: "#7dd3fc",
+          accent: "#a5f3fc",
+          neutral: "#d1d5db",
+          "base-100": "#ffffff",
+          info: "#7dd3fc",
+          success: "#22c55e",
+          warning: "#fcd34d",
+          error: "#e11d48",
+        },
+      },
+    ],
+  },
 } satisfies Config;

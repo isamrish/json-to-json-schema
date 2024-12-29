@@ -110,7 +110,7 @@ const JsonToJsonSchema = () => {
               readOnly: true,
             }}
             loading={<span className="loading loading-ring loading-lg"></span>}
-            className="rounded-md border-2"
+            className="rounded-md border-2 bg-gray-500"
           />
         </div>
       </div>
