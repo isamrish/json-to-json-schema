@@ -4,10 +4,11 @@ import Editor from "@monaco-editor/react";
 import { Draft07 } from "json-schema-library";
 import { FiCopy } from "react-icons/fi";
 import { ThemeContext } from "@/context/theme-context";
+import { isJsonString } from "@/utils";
 
 const Playground = () => {
-  const [json, setJson] = React.useState<string | undefined>(`{}`);
-  const [outputCode, setOutputCode] = React.useState<string | undefined>("");
+  const [json, setJson] = React.useState<string | null>("");
+  const [outputCode, setOutputCode] = React.useState<string | null>("");
   const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
   const { theme } = useContext(ThemeContext);
 
@@ -24,13 +25,18 @@ const Playground = () => {
   };
 
   const handleEditorChange = (value: string | undefined) => {
-    setJson(value);
+    setJson(value!);
   };
 
   const handleConvert = () => {
     const jsonSchema = new Draft07();
     const schema = jsonSchema.createSchemaOf(JSON.parse(json!));
     setOutputCode(JSON.stringify(schema, null, 2));
+  };
+
+  const handleReset = () => {
+    setJson("");
+    setOutputCode("");
   };
 
   useEffect(() => {
@@ -48,7 +54,7 @@ const Playground = () => {
           <h2 className="text-md text-teal-600 font-semibold mb-1">JSON</h2>
           <Editor
             height="50vh"
-            value={json}
+            value={json!}
             defaultLanguage="json"
             theme={theme === "dark" ? "vs-dark" : "light"}
             options={options}
@@ -81,7 +87,7 @@ const Playground = () => {
           </div>
           <Editor
             height="50vh"
-            value={outputCode}
+            value={outputCode!}
             defaultLanguage="json"
             theme={theme === "dark" ? "vs-dark" : "light"}
             options={{
@@ -93,12 +99,19 @@ const Playground = () => {
           />
         </div>
       </div>
-      <div className="mt-4 flex justify-center items-center">
+      <div className="mt-6 flex justify-center items-center">
         <button
-          className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600"
+          className="btn btn-primary bg-teal-600 text-white border-teal-600 hover:bg-teal-600 hover:border-teal-600 min-h-fit h-[40px]"
           onClick={handleConvert}
+          disabled={!isJsonString(json!)}
         >
           Convert To JSON Schema
+        </button>
+        <button
+          className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600  min-h-fit h-[40px] ml-3"
+          onClick={handleReset}
+        >
+          Reset
         </button>
       </div>
     </div>
