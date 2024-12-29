@@ -1,6 +1,6 @@
 import React from "react";
 import JsonToJsonSchema from "./json-to-json-schema";
-
+import ValidateJsonSchema from "./validate-json-schema";
 const PlayGround = () => {
   const [tab, setTab] = React.useState("jsontojsonschema");
   return (
@@ -50,6 +50,17 @@ const PlayGround = () => {
             Transform your JSON into precise JSON Schemas with ease.
           </p>
           <JsonToJsonSchema />
+        </div>
+      )}
+      {tab === "validateschema" && (
+        <div className="mt-6">
+          <h2 className="pt-3 text-2xl font-semibold">
+            VALIDATE JSON SCHEMA AGAINST JSON DATA
+          </h2>
+          <p className="pb-3 text-md font-normal">
+            Validate your JSON Schema against json data with ease.
+          </p>
+          <ValidateJsonSchema />
         </div>
       )}
     </>
