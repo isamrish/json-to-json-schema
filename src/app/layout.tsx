@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="solardrift">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased px-6`}
       >
         <Providers>
           <Header />

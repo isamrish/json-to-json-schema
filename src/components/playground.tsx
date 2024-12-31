@@ -20,7 +20,7 @@ const PlayGround = () => {
                 : "font-normal"
             }`}
           >
-            JSON TO JSON SCHEMA
+            CONVERTER
           </p>
         </a>
         <a
@@ -37,12 +37,12 @@ const PlayGround = () => {
               tab === "validateschema" ? "font-black text-white" : "font-normal"
             }`}
           >
-            VALIDATE SCHEMA
+            VALIDATOR
           </p>{" "}
         </a>
       </div>
       {tab === "jsontojsonschema" && (
-        <div className="mt-6">
+        <div className="my-6">
           <h2 className="pt-3 text-2xl font-semibold">
             JSON TO JSON SCHEMA CONVERTER{" "}
           </h2>
@@ -53,12 +53,12 @@ const PlayGround = () => {
         </div>
       )}
       {tab === "validateschema" && (
-        <div className="mt-6">
+        <div className="my-6">
           <h2 className="pt-3 text-2xl font-semibold">
             VALIDATE JSON SCHEMA AGAINST JSON DATA
           </h2>
           <p className="pb-3 text-md font-normal">
-            Validate your JSON Schema against json data with ease.
+            Validate your JSON Schema against JSON Data with ease.
           </p>
           <ValidateJsonSchema />
         </div>

@@ -48,7 +48,7 @@ const ValidateJsonSchema = () => {
 
   return (
     <>
-      <div className="grid gap-4 grid-cols-[1fr_1fr]">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
         <div className="min-h-[50vh]">
           <h2 className="text-md text-teal-600 font-semibold mb-1">
             JSON Schema

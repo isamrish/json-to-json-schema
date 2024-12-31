@@ -53,7 +53,7 @@ const JsonToJsonSchema = () => {
 
   return (
     <div className="mt-0">
-      <div className="grid gap-4 grid-cols-[1fr_1fr]">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
         <div className="min-h-[50vh]">
           <h2 className="text-md text-teal-600 font-semibold mb-1">JSON</h2>
           <Editor
@@ -69,7 +69,7 @@ const JsonToJsonSchema = () => {
             }`}
           />
         </div>
-        <div className="p-0">
+        <div className="p-0 order-3 lg:order-2">
           <div className="flex justify-between items-center">
             <h2 className="text-md text-teal-600 font-semibold mb-1">
               JSON Schema
@@ -113,22 +113,22 @@ const JsonToJsonSchema = () => {
             className="rounded-md border-2 bg-gray-500"
           />
         </div>
-      </div>
-      <div className="mt-6 flex justify-start items-center">
-        <button
-          className="btn btn-primary bg-teal-600 text-white border-teal-600 hover:bg-teal-600 hover:border-teal-600 min-h-fit h-[40px]"
-          onClick={handleConvert}
-          disabled={!isJsonString(json!) || json?.trim() === ""}
-        >
-          Convert To JSON Schema
-        </button>
-        <button
-          className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600  min-h-fit h-[40px] ml-3"
-          onClick={handleClear}
-          disabled={json?.trim() === ""}
-        >
-          Clear
-        </button>
+        <div className="mt-3 mb-4 flex justify-start items-center order-2 lg:order-3">
+          <button
+            className="btn btn-primary bg-teal-600 text-white border-teal-600 hover:bg-teal-600 hover:border-teal-600 min-h-fit h-[40px]"
+            onClick={handleConvert}
+            disabled={!isJsonString(json!) || json?.trim() === ""}
+          >
+            Convert To JSON Schema
+          </button>
+          <button
+            className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600  min-h-fit h-[40px] ml-3"
+            onClick={handleClear}
+            disabled={json?.trim() === ""}
+          >
+            Clear
+          </button>
+        </div>
       </div>
     </div>
   );
