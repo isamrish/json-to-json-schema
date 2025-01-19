@@ -10,6 +10,7 @@ const ValidateJsonSchema = () => {
   const { theme } = useContext(ThemeContext);
   const [isError, setIsError] = React.useState(false);
   const [isValidated, setIsValidated] = React.useState(false);
+
   const options = {
     fontSize: "14px",
     scrollBeyondLastLine: false,

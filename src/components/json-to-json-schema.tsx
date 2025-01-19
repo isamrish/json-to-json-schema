@@ -5,13 +5,14 @@ import { Draft07 } from "json-schema-library";
 import { FiCopy } from "react-icons/fi";
 import { AiOutlineClear } from "react-icons/ai";
 import { ThemeContext } from "@/context/theme-context";
+import { StorageContext } from "@/context/storage-context";
 import { isJsonString } from "@/utils";
 
 const JsonToJsonSchema = () => {
-  const [json, setJson] = React.useState<string | null>("");
   const [outputCode, setOutputCode] = React.useState<string | null>("");
   const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
   const { theme } = useContext(ThemeContext);
+  const { data, addItem, removeItem } = useContext(StorageContext) ?? {};
 
   const options = {
     fontSize: "14px",
@@ -29,17 +30,17 @@ const JsonToJsonSchema = () => {
   };
 
   const handleEditorChange = (value: string | undefined) => {
-    setJson(value!);
+    addItem?.("converter", value!);
   };
 
   const handleConvert = () => {
     const jsonSchema = new Draft07();
-    const schema = jsonSchema.createSchemaOf(JSON.parse(json!));
+    const schema = jsonSchema.createSchemaOf(JSON.parse(data?.converter ?? ""));
     setOutputCode(JSON.stringify(schema, null, 2));
   };
 
   const handleClear = () => {
-    setJson("");
+    removeItem?.("converter");
     setOutputCode("");
   };
 
@@ -58,14 +59,17 @@ const JsonToJsonSchema = () => {
           <h2 className="text-md text-teal-600 font-semibold mb-1">JSON</h2>
           <Editor
             height="50vh"
-            value={json!}
+            value={data?.converter ?? ""}
             defaultLanguage="json"
             theme={theme === "dark" ? "vs-dark" : "light"}
             options={options}
             loading={<span className="loading loading-ring loading-lg"></span>}
             onChange={handleEditorChange}
             className={`rounded-md border-2 ${
-              json?.trim() === "" || isJsonString(json!) ? "" : "border-red-500"
+              data?.converter?.trim() === "" ||
+              isJsonString(data?.converter ?? "")
+                ? ""
+                : "border-red-500"
             }`}
           />
         </div>
@@ -117,14 +121,17 @@ const JsonToJsonSchema = () => {
           <button
             className="btn btn-primary bg-teal-600 text-white border-teal-600 hover:bg-teal-600 hover:border-teal-600 min-h-fit h-[40px]"
             onClick={handleConvert}
-            disabled={!isJsonString(json!) || json?.trim() === ""}
+            disabled={
+              !isJsonString(data?.converter ?? "") ||
+              data?.converter?.trim() === ""
+            }
           >
             Convert To JSON Schema
           </button>
           <button
             className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600  min-h-fit h-[40px] ml-3"
             onClick={handleClear}
-            disabled={json?.trim() === ""}
+            disabled={data?.converter?.trim() === ""}
           >
             Clear
           </button>
