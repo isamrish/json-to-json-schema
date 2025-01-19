@@ -31,6 +31,7 @@ const JsonToJsonSchema = () => {
 
   const handleEditorChange = (value: string | undefined) => {
     addItem?.("converter", value!);
+    setOutputCode("");
   };
 
   const handleConvert = () => {
