@@ -9,7 +9,6 @@ import { StorageContext } from "@/context/storage-context";
 import { isJsonString } from "@/utils";
 
 const JsonToJsonSchema = () => {
-  const [outputCode, setOutputCode] = React.useState<string | null>("");
   const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
   const { theme } = useContext(ThemeContext);
   const { data, addItem, removeItem } = useContext(StorageContext) ?? {};
@@ -31,7 +30,7 @@ const JsonToJsonSchema = () => {
 
   const handleEditorChange = (value: string | undefined) => {
     addItem?.("converter.data", value!);
-    setOutputCode("");
+    removeItem?.({ keyPath: "converter.schema" });
   };
 
   const handleConvert = () => {
@@ -39,14 +38,13 @@ const JsonToJsonSchema = () => {
     const schema = jsonSchema.createSchemaOf(
       JSON.parse(data?.converter?.data ?? "")
     );
-    setOutputCode(JSON.stringify(schema, null, 2));
+    addItem?.("converter.schema", JSON.stringify(schema, null, 2));
   };
 
   const handleClear = () => {
     removeItem?.({
       key: "converter",
     });
-    setOutputCode("");
   };
 
   useEffect(() => {
@@ -83,13 +81,13 @@ const JsonToJsonSchema = () => {
             <h2 className="text-md text-teal-600 font-semibold mb-1">
               JSON Schema
             </h2>
-            {outputCode && (
+            {data?.converter?.schema && (
               <div>
                 <div
                   className="tooltip cursor-pointer text-teal-600 mr-4"
                   data-tip="Clear"
                   onClick={() => {
-                    setOutputCode("");
+                    removeItem?.({ keyPath: "converter.schema" });
                   }}
                 >
                   <AiOutlineClear size={22} />
@@ -100,7 +98,9 @@ const JsonToJsonSchema = () => {
                     isCopiedToClipboard ? "Copied" : "Copy to clipboard"
                   }
                   onClick={() => {
-                    navigator.clipboard.writeText(outputCode!);
+                    navigator.clipboard.writeText(
+                      data?.converter?.schema ?? ""
+                    );
                     setIsCopiedToClipboard(true);
                   }}
                 >
@@ -111,7 +111,7 @@ const JsonToJsonSchema = () => {
           </div>
           <Editor
             height="50vh"
-            value={outputCode!}
+            value={data?.converter?.schema ?? ""}
             defaultLanguage="json"
             theme={theme === "dark" ? "vs-dark" : "light"}
             options={{
