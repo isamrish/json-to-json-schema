@@ -2,26 +2,74 @@
 import { createContext } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { findOtherProperties } from "@/utils";
-import { StorageContextType, StorageDataKeys } from "@/types";
+import {
+  StorageContextType,
+  StorageDataKeys,
+  StorageDataKeyPaths,
+  SchemaWithData,
+} from "@/types";
 
 const StorageContext = createContext<StorageContextType | null>(null);
 
 const StorageProvider = ({ children }: { children: React.ReactNode }) => {
   const [value, setValue, removeValue] = useLocalStorage("data", {
-    converter: "",
-    validator: "",
-  } as Record<StorageDataKeys, string>);
+    converter: {
+      data: "",
+      schema: "",
+    },
+    validator: {
+      data: "",
+      schema: "",
+    },
+  } as Record<StorageDataKeys, Record<keyof SchemaWithData, string>>);
 
-  const addItem = (key: StorageDataKeys, value: string) => {
-    setValue((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
+  const addItem = (keyPath: StorageDataKeyPaths, value: string) => {
+    const [key, subKey] = keyPath.split(".") as [
+      StorageDataKeys,
+      keyof SchemaWithData
+    ];
+
+    setValue((prev) => {
+      if (prev && key && subKey) {
+        return {
+          ...prev,
+          [key]: {
+            ...prev[key],
+            [subKey]: value,
+          },
+        };
+      }
+      return prev;
+    });
   };
 
-  const removeItem = (key: StorageDataKeys) => {
+  const removeItem = (
+    args: { key: StorageDataKeys } | { keyPath: StorageDataKeyPaths }
+  ) => {
     setValue((prev) => {
-      return findOtherProperties(prev, key) as Record<StorageDataKeys, string>;
+      if (!prev) return prev;
+
+      let updatedState = { ...prev };
+
+      if ("key" in args) {
+        updatedState = findOtherProperties(prev, args.key) as Record<
+          StorageDataKeys,
+          Record<keyof SchemaWithData, string>
+        >;
+      } else if ("keyPath" in args) {
+        const [key, subKey] = args.keyPath.split(".") as [
+          StorageDataKeys,
+          keyof SchemaWithData
+        ];
+        if (key && subKey) {
+          updatedState[key] = {
+            ...updatedState[key],
+            [subKey]: "",
+          };
+        }
+      }
+
+      return updatedState;
     });
   };
 

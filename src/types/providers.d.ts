@@ -1,13 +1,22 @@
+export interface SchemaWithData {
+  data: string;
+  schema: string;
+}
 export interface StorageData {
-  converter: string;
-  validator: string;
+  converter: SchemaWithData;
+  validator: SchemaWithData;
 }
 
 export type StorageDataKeys = keyof StorageData;
 
+export type StorageDataKeyPaths =
+  `${keyof StorageData}.${keyof SchemaWithData}`;
+
 export interface StorageContextType {
   data: StorageData | null;
-  addItem: (key: StorageDataKeys, value: string) => void;
-  removeItem: (key: StorageDataKeys) => void;
+  addItem: (keyPath: StorageDataKeyPaths, value: string) => void;
+  removeItem: (
+    args: { key: StorageDataKeys } | { keyPath: StorageDataKeyPaths }
+  ) => void;
   flush: () => void;
 }
