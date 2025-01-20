@@ -1,15 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { ThemeContext } from "@/context/theme-context";
 import { isJsonString } from "@/utils";
 import { Draft2019, JsonError, JsonSchema } from "json-schema-library";
+import { StorageContext } from "@/context/storage-context";
+import { SchemaWithData } from "@/types";
 
 const ValidateJsonSchema = () => {
-  const [code, setCode] = React.useState("");
-  const [jsonData, setJsonData] = React.useState("");
   const { theme } = useContext(ThemeContext);
   const [isError, setIsError] = React.useState(false);
   const [isValidated, setIsValidated] = React.useState(false);
+  const { data, addItem, removeItem } = useContext(StorageContext) ?? {};
 
   const options = {
     fontSize: "14px",
@@ -27,25 +28,35 @@ const ValidateJsonSchema = () => {
   };
 
   const handleValidate = () => {
-    const schema: JsonSchema = JSON.parse(code);
+    const schema: JsonSchema = JSON.parse(data?.validator?.schema ?? "");
     const jsonSchema = new Draft2019(schema);
-    const data = JSON.parse(jsonData);
-    const errors: JsonError[] = jsonSchema.validate(data);
+    const _data = JSON.parse(data?.validator?.data ?? "");
+    const errors: JsonError[] = jsonSchema.validate(_data);
     setIsError(!!errors?.length);
     setIsValidated(true);
   };
 
   const handleJsonSchemaChange = (value: string | undefined) => {
-    setCode(value!);
+    addItem?.("validator.schema", value!);
     setIsError(false);
     setIsValidated(false);
   };
 
   const handleJsonDataChange = (value: string | undefined) => {
-    setJsonData(value!);
+    addItem?.("validator.data", value!);
     setIsError(false);
     setIsValidated(false);
   };
+
+  useEffect(() => {
+    let timerId: ReturnType<typeof setTimeout>;
+    if (isValidated) {
+      timerId = setTimeout(() => {
+        setIsValidated(false);
+      }, 2000);
+    }
+    return () => clearTimeout(timerId);
+  }, [isValidated]);
 
   return (
     <>
@@ -56,13 +67,16 @@ const ValidateJsonSchema = () => {
           </h2>
           <Editor
             height="50vh"
-            value={code!}
+            value={data?.validator?.schema ?? ""}
             defaultLanguage="json"
             theme={theme === "dark" ? "vs-dark" : "light"}
             options={options}
             loading={<span className="loading loading-ring loading-lg"></span>}
             className={`rounded-md border-2 ${
-              code?.trim() === "" || isJsonString(code!) ? "" : "border-red-500"
+              data?.validator?.schema?.trim() === "" ||
+              isJsonString(data?.validator?.schema ?? "")
+                ? ""
+                : "border-red-500"
             }`}
             onChange={handleJsonSchemaChange}
           />
@@ -73,13 +87,16 @@ const ValidateJsonSchema = () => {
           </h2>
           <Editor
             height="50vh"
-            value={jsonData!}
+            value={data?.validator?.data ?? ""}
             defaultLanguage="json"
             theme={theme === "dark" ? "vs-dark" : "light"}
             options={options}
             loading={<span className="loading loading-ring loading-lg"></span>}
             className={`rounded-md border-2 ${
-              code?.trim() === "" || isJsonString(code!) ? "" : "border-red-500"
+              data?.validator?.data?.trim() === "" ||
+              isJsonString(data?.validator?.data ?? "")
+                ? ""
+                : "border-red-500"
             }`}
             onChange={handleJsonDataChange}
           />
@@ -89,14 +106,25 @@ const ValidateJsonSchema = () => {
         <button
           className="btn btn-primary bg-teal-600 text-white border-teal-600 hover:bg-teal-600 hover:border-teal-600 min-h-fit h-[40px]"
           onClick={handleValidate}
-          disabled={code?.trim() === "" || !isJsonString(code!)}
+          disabled={
+            Boolean(data?.validator) &&
+            (["schema", "data"] as Array<keyof SchemaWithData>).some(
+              (key) =>
+                data?.validator?.[key]?.trim() === "" ||
+                !isJsonString(data?.validator?.[key] ?? "")
+            )
+          }
         >
           Validate JSON Schema
         </button>
         <button
           className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600  min-h-fit h-[40px] ml-3"
-          onClick={() => setCode("")}
-          disabled={code?.trim() === ""}
+          onClick={() => removeItem?.({ key: "validator" })}
+          disabled={
+            Boolean(data?.validator) &&
+            (data?.validator?.schema?.trim() === "" ||
+              data?.validator?.data?.trim() === "")
+          }
         >
           Clear
         </button>
