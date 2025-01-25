@@ -1,47 +1,18 @@
 import React from "react";
 import JsonToJsonSchema from "./json-to-json-schema";
 import ValidateJsonSchema from "./validate-json-schema";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 const PlayGround = () => {
-  const [tab, setTab] = React.useState("jsontojsonschema");
   return (
-    <>
-      <div role="tablist" className="tabs tabs-boxed max-w-full block">
-        <a
-          role="tab"
-          className={`tab max-w-[200px] border-0 ${
-            tab === "jsontojsonschema" ? "tab-active " : ""
-          }`}
-          onClick={() => setTab("jsontojsonschema")}
-        >
-          <p
-            className={`mb-0 ${
-              tab === "jsontojsonschema"
-                ? "font-black text-white"
-                : "font-normal"
-            }`}
-          >
-            CONVERTER
-          </p>
-        </a>
-        <a
-          role="tab"
-          className={`tab border-0 ${
-            tab === "validateschema"
-              ? "tab-active"
-              : "inline-block w-[calc(100%-200px)] max-w-full text-left"
-          }`}
-          onClick={() => setTab("validateschema")}
-        >
-          <p
-            className={`mb-0 ${
-              tab === "validateschema" ? "font-black text-white" : "font-normal"
-            }`}
-          >
-            VALIDATOR
-          </p>{" "}
-        </a>
+    <Tabs defaultValue="jsontojsonschema" className="w-full">
+      <div className="w-full bg-gray-100 rounded-md py-2">
+        <TabsList className="grid w-[280px] grid-cols-2 px-2">
+          <TabsTrigger value="jsontojsonschema">CONVERTER</TabsTrigger>
+          <TabsTrigger value="validateschema">VALIDATOR</TabsTrigger>
+        </TabsList>
       </div>
-      {tab === "jsontojsonschema" && (
+      <TabsContent value="jsontojsonschema">
         <div className="my-6">
           <h2 className="pt-3 text-2xl font-semibold">
             JSON TO JSON SCHEMA CONVERTER{" "}
@@ -51,8 +22,8 @@ const PlayGround = () => {
           </p>
           <JsonToJsonSchema />
         </div>
-      )}
-      {tab === "validateschema" && (
+      </TabsContent>
+      <TabsContent value="validateschema">
         <div className="my-6">
           <h2 className="pt-3 text-2xl font-semibold">
             VALIDATE JSON SCHEMA AGAINST JSON DATA
@@ -62,8 +33,8 @@ const PlayGround = () => {
           </p>
           <ValidateJsonSchema />
         </div>
-      )}
-    </>
+      </TabsContent>
+    </Tabs>
   );
 };
 

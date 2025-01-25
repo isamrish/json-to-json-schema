@@ -3,6 +3,7 @@ import Editor from "@monaco-editor/react";
 import { ThemeContext } from "@/context/theme-context";
 import { isJsonString } from "@/utils";
 import { Draft2019, JsonError, JsonSchema } from "json-schema-library";
+import { Button } from "@/components/ui/button";
 import { StorageContext } from "@/context/storage-context";
 import { SchemaWithData } from "@/types";
 import { PiMagicWand } from "react-icons/pi";
@@ -134,8 +135,9 @@ const ValidateJsonSchema = () => {
         </div>
       </div>
       <div className="mt-4 flex justify-start items-center">
-        <button
-          className="btn btn-primary bg-teal-600 text-white border-teal-600 hover:bg-teal-600 hover:border-teal-600 min-h-fit h-[40px]"
+        <Button
+          variant="default"
+          className="mr-4"
           onClick={handleValidate}
           disabled={
             Boolean(data?.validator) &&
@@ -147,9 +149,9 @@ const ValidateJsonSchema = () => {
           }
         >
           Validate JSON Schema
-        </button>
-        <button
-          className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600  min-h-fit h-[40px] ml-3"
+        </Button>
+        <Button
+          variant="outline"
           onClick={() => removeItem?.({ key: "validator" })}
           disabled={
             Boolean(data?.validator) &&
@@ -158,7 +160,7 @@ const ValidateJsonSchema = () => {
           }
         >
           Clear
-        </button>
+        </Button>
       </div>
       {isValidated && (
         <div className="my-4 flex justify-start items-center">

@@ -2,6 +2,7 @@
 import React, { useEffect, useContext } from "react";
 import Editor from "@monaco-editor/react";
 import { Draft07 } from "json-schema-library";
+import { Button } from "@/components/ui/button";
 import { FiCopy } from "react-icons/fi";
 import { AiOutlineClear } from "react-icons/ai";
 import { PiMagicWand } from "react-icons/pi";
@@ -157,8 +158,9 @@ const JsonToJsonSchema = () => {
           />
         </div>
         <div className="mt-3 mb-4 flex justify-start items-center order-2 lg:order-3">
-          <button
-            className="btn btn-primary bg-teal-600 text-white border-teal-600 hover:bg-teal-600 hover:border-teal-600 min-h-fit h-[40px]"
+          <Button
+            variant="default"
+            className="mr-4"
             onClick={handleConvert}
             disabled={
               !isJsonString(data?.converter?.data ?? "") ||
@@ -166,14 +168,14 @@ const JsonToJsonSchema = () => {
             }
           >
             Convert To JSON Schema
-          </button>
-          <button
-            className="btn btn-outline text-teal-600 hover:bg-teal-600 hover:border-teal-600  min-h-fit h-[40px] ml-3"
+          </Button>
+          <Button
+            variant="outline"
             onClick={handleClear}
             disabled={data?.converter?.data?.trim() === ""}
           >
             Clear
-          </button>
+          </Button>
         </div>
       </div>
     </div>
