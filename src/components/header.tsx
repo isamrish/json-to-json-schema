@@ -1,6 +1,7 @@
 "use client";
 import React, { useContext } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { CiDark, CiLight } from "react-icons/ci";
 import { ThemeContext } from "@/context/theme-context";
 
@@ -9,7 +10,7 @@ const Header = () => {
   return (
     <div className="bg-white">
       <header className="py-4 flex justify-between items-center text-xl font-bold max-w-[1400px] mx-auto">
-        <a
+        <Link
           href="/"
           className="flex justify-center items-center text-2xl font-semibold text-gray-900 dark:text-white"
         >
@@ -19,7 +20,7 @@ const Header = () => {
             height={80}
             alt="Logo"
           />
-        </a>
+        </Link>
         <div
           className="cursor-pointer bg-teal-50 border-teal-400 border rounded"
           onClick={toggleTheme}
