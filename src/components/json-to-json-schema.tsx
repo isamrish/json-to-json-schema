@@ -5,6 +5,7 @@ import { Draft07 } from "json-schema-library";
 import { FiCopy } from "react-icons/fi";
 import { AiOutlineClear } from "react-icons/ai";
 import { PiMagicWand } from "react-icons/pi";
+import { RxDoubleArrowRight } from "react-icons/rx";
 import { ThemeContext } from "@/context/theme-context";
 import { StorageContext } from "@/context/storage-context";
 import { isJsonString } from "@/utils";
@@ -49,10 +50,6 @@ const JsonToJsonSchema = () => {
     });
   };
 
-  // const handleBeautify = (key: StorageDataKeyPaths, data: string) => {
-  //   addItem?.(key, JSON.stringify(JSON.parse(data), null, 2));
-  // };
-
   useEffect(() => {
     if (isCopiedToClipboard) {
       setTimeout(() => {
@@ -63,7 +60,7 @@ const JsonToJsonSchema = () => {
 
   return (
     <div className="mt-0">
-      <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-[1fr_30px_1fr]">
         <div className="min-h-[50vh]">
           <div className="flex justify-between items-center">
             <h2 className="text-md text-teal-600 font-semibold mb-1">JSON</h2>
@@ -95,6 +92,9 @@ const JsonToJsonSchema = () => {
                 : "border-red-500"
             }`}
           />
+        </div>
+        <div className="hidden text-purple-500 lg:flex lg:justify-center lg:items-center">
+          <RxDoubleArrowRight size="24" />
         </div>
         <div className="p-0 order-3 lg:order-2">
           <div className="flex justify-between items-center">
