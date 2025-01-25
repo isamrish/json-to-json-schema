@@ -5,9 +5,12 @@ import { isJsonString } from "@/utils";
 import { Draft2019, JsonError, JsonSchema } from "json-schema-library";
 import { StorageContext } from "@/context/storage-context";
 import { SchemaWithData } from "@/types";
+import { PiMagicWand } from "react-icons/pi";
+import { useCommon } from "@/hooks";
 
 const ValidateJsonSchema = () => {
   const { theme } = useContext(ThemeContext);
+  const { handleBeautify } = useCommon();
   const [isError, setIsError] = React.useState(false);
   const [isValidated, setIsValidated] = React.useState(false);
   const { data, addItem, removeItem } = useContext(StorageContext) ?? {};
@@ -62,9 +65,23 @@ const ValidateJsonSchema = () => {
     <>
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
         <div className="min-h-[50vh]">
-          <h2 className="text-md text-teal-600 font-semibold mb-1">
-            JSON Schema
-          </h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-md text-teal-600 font-semibold mb-1">
+              JSON Schema
+            </h2>
+            {data?.validator?.schema &&
+              isJsonString(data?.validator?.schema ?? "") && (
+                <div
+                  className="tooltip cursor-pointer text-teal-600"
+                  data-tip="Beautify"
+                  onClick={() =>
+                    handleBeautify("validator.schema", data?.validator?.schema)
+                  }
+                >
+                  <PiMagicWand size={22} />
+                </div>
+              )}
+          </div>
           <Editor
             height="50vh"
             value={data?.validator?.schema ?? ""}
@@ -82,9 +99,23 @@ const ValidateJsonSchema = () => {
           />
         </div>
         <div className="min-h-[50vh]">
-          <h2 className="text-md text-teal-600 font-semibold mb-1">
-            JSON Data
-          </h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-md text-teal-600 font-semibold mb-1">
+              JSON Data
+            </h2>
+            {data?.validator?.data &&
+              isJsonString(data?.validator?.data ?? "") && (
+                <div
+                  className="tooltip cursor-pointer text-teal-600"
+                  data-tip="Beautify"
+                  onClick={() =>
+                    handleBeautify("validator.data", data?.validator?.data)
+                  }
+                >
+                  <PiMagicWand size={22} />
+                </div>
+              )}
+          </div>
           <Editor
             height="50vh"
             value={data?.validator?.data ?? ""}

@@ -4,18 +4,16 @@ import Editor from "@monaco-editor/react";
 import { Draft07 } from "json-schema-library";
 import { FiCopy } from "react-icons/fi";
 import { AiOutlineClear } from "react-icons/ai";
-import { GiStarFormation } from "react-icons/gi";
-import { PiMagicWandLight } from "react-icons/pi";
 import { PiMagicWand } from "react-icons/pi";
 import { ThemeContext } from "@/context/theme-context";
 import { StorageContext } from "@/context/storage-context";
 import { isJsonString } from "@/utils";
-import { StorageDataKeyPaths } from "@/types";
-
+import { useCommon } from "@/hooks";
 const JsonToJsonSchema = () => {
   const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
   const { theme } = useContext(ThemeContext);
   const { data, addItem, removeItem } = useContext(StorageContext) ?? {};
+  const { handleBeautify } = useCommon();
 
   const options = {
     fontSize: "14px",
@@ -51,9 +49,9 @@ const JsonToJsonSchema = () => {
     });
   };
 
-  const handleBeautify = (key: StorageDataKeyPaths, data: string) => {
-    addItem?.(key, JSON.stringify(JSON.parse(data), null, 2));
-  };
+  // const handleBeautify = (key: StorageDataKeyPaths, data: string) => {
+  //   addItem?.(key, JSON.stringify(JSON.parse(data), null, 2));
+  // };
 
   useEffect(() => {
     if (isCopiedToClipboard) {
@@ -69,17 +67,18 @@ const JsonToJsonSchema = () => {
         <div className="min-h-[50vh]">
           <div className="flex justify-between items-center">
             <h2 className="text-md text-teal-600 font-semibold mb-1">JSON</h2>
-            {data?.converter?.data && isJsonString(data?.converter?.data!) && (
-              <div
-                className="tooltip cursor-pointer text-teal-600"
-                data-tip="Beautify"
-                onClick={() =>
-                  handleBeautify("converter.data", data?.converter?.data)
-                }
-              >
-                <PiMagicWand size={22} />
-              </div>
-            )}
+            {data?.converter?.data &&
+              isJsonString(data?.converter?.data ?? "") && (
+                <div
+                  className="tooltip cursor-pointer text-teal-600"
+                  data-tip="Beautify"
+                  onClick={() =>
+                    handleBeautify("converter.data", data?.converter?.data)
+                  }
+                >
+                  <PiMagicWand size={22} />
+                </div>
+              )}
           </div>
           <Editor
             height="50vh"
@@ -104,7 +103,7 @@ const JsonToJsonSchema = () => {
             </h2>
             {data?.converter?.schema && (
               <div>
-                {isJsonString(data?.converter?.schema!) && (
+                {isJsonString(data?.converter?.schema ?? "") && (
                   <div
                     className="tooltip cursor-pointer text-teal-600 mr-4"
                     data-tip="Beautify"
