@@ -9,7 +9,17 @@ const Header = () => {
   return (
     <div className="bg-white">
       <header className="py-4 flex justify-between items-center text-xl font-bold max-w-[1400px] mx-auto">
-        <Image src="/json-schema-logo.png" width={200} height={80} alt="Logo" />
+        <a
+          href="/"
+          className="flex justify-center items-center text-2xl font-semibold text-gray-900 dark:text-white"
+        >
+          <Image
+            src="/json-schema-logo.png"
+            width={200}
+            height={80}
+            alt="Logo"
+          />
+        </a>
         <div
           className="cursor-pointer bg-teal-50 border-teal-400 border rounded"
           onClick={toggleTheme}
