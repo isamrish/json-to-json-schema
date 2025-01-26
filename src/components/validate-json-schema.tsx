@@ -10,7 +10,7 @@ import { PiMagicWand } from "react-icons/pi";
 import { useCommon } from "@/hooks";
 
 const ValidateJsonSchema = () => {
-  const { theme } = useContext(ThemeContext);
+  const { editorTheme } = useContext(ThemeContext);
   const { handleBeautify } = useCommon();
   const [isError, setIsError] = React.useState(false);
   const [isValidated, setIsValidated] = React.useState(false);
@@ -87,7 +87,7 @@ const ValidateJsonSchema = () => {
             height="50vh"
             value={data?.validator?.schema ?? ""}
             defaultLanguage="json"
-            theme={theme === "dark" ? "vs-dark" : "light"}
+            theme={editorTheme}
             options={options}
             loading={<span className="loading loading-ring loading-lg"></span>}
             className={`rounded-md border-2 ${
@@ -121,7 +121,7 @@ const ValidateJsonSchema = () => {
             height="50vh"
             value={data?.validator?.data ?? ""}
             defaultLanguage="json"
-            theme={theme === "dark" ? "vs-dark" : "light"}
+            theme={editorTheme}
             options={options}
             loading={<span className="loading loading-ring loading-lg"></span>}
             className={`rounded-md border-2 ${

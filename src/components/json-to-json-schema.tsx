@@ -13,7 +13,7 @@ import { isJsonString } from "@/utils";
 import { useCommon } from "@/hooks";
 const JsonToJsonSchema = () => {
   const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
-  const { theme } = useContext(ThemeContext);
+  const { editorTheme } = useContext(ThemeContext);
   const { data, addItem, removeItem } = useContext(StorageContext) ?? {};
   const { handleBeautify } = useCommon();
 
@@ -82,7 +82,7 @@ const JsonToJsonSchema = () => {
             height="50vh"
             value={data?.converter?.data ?? ""}
             defaultLanguage="json"
-            theme={theme === "dark" ? "vs-dark" : "light"}
+            theme={editorTheme}
             options={options}
             loading={<span className="loading loading-ring loading-lg"></span>}
             onChange={handleEditorChange}
@@ -148,7 +148,7 @@ const JsonToJsonSchema = () => {
             height="50vh"
             value={data?.converter?.schema ?? ""}
             defaultLanguage="json"
-            theme={theme === "dark" ? "vs-dark" : "light"}
+            theme={editorTheme}
             options={{
               ...options,
               readOnly: true,
