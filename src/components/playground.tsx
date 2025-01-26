@@ -6,8 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const PlayGround = () => {
   return (
     <Tabs defaultValue="jsontojsonschema" className="w-full">
-      <div className="w-full bg-gray-100 rounded-md py-2">
-        <TabsList className="grid w-[280px] grid-cols-2 px-2">
+      <div className="w-full bg-gray-100 dark:bg-muted rounded-md p-2">
+        <TabsList className="grid w-[280px] grid-cols-2">
           <TabsTrigger value="jsontojsonschema">CONVERTER</TabsTrigger>
           <TabsTrigger value="validateschema">VALIDATOR</TabsTrigger>
         </TabsList>

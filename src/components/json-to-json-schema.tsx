@@ -7,13 +7,13 @@ import { FiCopy } from "react-icons/fi";
 import { AiOutlineClear } from "react-icons/ai";
 import { PiMagicWand } from "react-icons/pi";
 import { RxDoubleArrowRight } from "react-icons/rx";
-import { ThemeContext } from "@/context/theme-context";
+import { ConfigContext } from "@/context/config-context";
 import { StorageContext } from "@/context/storage-context";
-import { isJsonString } from "@/utils";
+import { isJsonString } from "@/lib/utils";
 import { useCommon } from "@/hooks";
 const JsonToJsonSchema = () => {
   const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
-  const { editorTheme } = useContext(ThemeContext);
+  const { editorTheme } = useContext(ConfigContext);
   const { data, addItem, removeItem } = useContext(StorageContext) ?? {};
   const { handleBeautify } = useCommon();
 

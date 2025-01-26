@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Editor from "@monaco-editor/react";
-import { ThemeContext } from "@/context/theme-context";
-import { isJsonString } from "@/utils";
+import { ConfigContext } from "@/context/config-context";
+import { isJsonString } from "@/lib/utils";
 import { Draft2019, JsonError, JsonSchema } from "json-schema-library";
 import { Button } from "@/components/ui/button";
 import { StorageContext } from "@/context/storage-context";
@@ -10,7 +10,7 @@ import { PiMagicWand } from "react-icons/pi";
 import { useCommon } from "@/hooks";
 
 const ValidateJsonSchema = () => {
-  const { editorTheme } = useContext(ThemeContext);
+  const { editorTheme } = useContext(ConfigContext);
   const { handleBeautify } = useCommon();
   const [isError, setIsError] = React.useState(false);
   const [isValidated, setIsValidated] = React.useState(false);

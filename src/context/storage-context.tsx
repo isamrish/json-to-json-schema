@@ -1,7 +1,7 @@
 "use client";
 import { createContext } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { findOtherProperties } from "@/utils";
+import { findOtherProperties } from "@/lib/utils";
 import {
   StorageContextType,
   StorageDataKeys,

@@ -2,8 +2,7 @@
 import React, { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CiDark, CiLight } from "react-icons/ci";
-import { ThemeContext } from "@/context/theme-context";
+import { ConfigContext } from "@/context/config-context";
 import { Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,12 +16,12 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { editorThemes } from "@/constants";
+import { Mode } from "./mode";
 
 const Header = () => {
-  const { editorTheme, theme, updateEditorTheme, toggleTheme } =
-    useContext(ThemeContext);
+  const { editorTheme, updateEditorTheme } = useContext(ConfigContext);
   return (
-    <div className="bg-white">
+    <div>
       <header className="py-4 flex justify-between items-center text-xl font-bold max-w-[1400px] mx-auto">
         <Link
           href="/"
@@ -77,15 +76,8 @@ const Header = () => {
               </DialogHeader>
             </DialogContent>
           </Dialog>
-          <div
-            className="cursor-pointer ml-3 bg-teal-50 border-teal-400 border rounded"
-            onClick={toggleTheme}
-          >
-            {theme === "dark" ? (
-              <CiLight className="text-3xl" />
-            ) : (
-              <CiDark className="text-3xl" />
-            )}
+          <div className="ml-3">
+            <Mode />
           </div>
         </div>
       </header>
