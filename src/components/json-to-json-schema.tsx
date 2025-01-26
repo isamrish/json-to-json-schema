@@ -9,8 +9,10 @@ import { PiMagicWand } from "react-icons/pi";
 import { RxDoubleArrowRight } from "react-icons/rx";
 import { ConfigContext } from "@/context/config-context";
 import { StorageContext } from "@/context/storage-context";
-import { isJsonString } from "@/lib/utils";
+import { isJsonString, toCapitalize } from "@/lib/utils";
 import { useCommon } from "@/hooks";
+import levels from "@/data";
+
 const JsonToJsonSchema = () => {
   const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
   const { editorTheme } = useContext(ConfigContext);
@@ -51,6 +53,11 @@ const JsonToJsonSchema = () => {
     });
   };
 
+  const handleSelect = (res: string) => {
+    addItem?.("converter.data", JSON.stringify(levels[res], null, 2));
+    removeItem?.({ keyPath: "converter.schema" });
+  };
+
   useEffect(() => {
     if (isCopiedToClipboard) {
       setTimeout(() => {
@@ -61,7 +68,30 @@ const JsonToJsonSchema = () => {
 
   return (
     <div className="mt-0">
-      <div className="grid gap-4 grid-cols-1 lg:grid-cols-[1fr_30px_1fr]">
+      {[
+        "level1",
+        "level2",
+        "level3",
+        "level4",
+        "level5",
+        "level6",
+        "level7",
+        "level8",
+        "level9",
+        "level10",
+      ]?.map((res) => {
+        return (
+          <Button
+            variant="outline"
+            className="mr-3 mb-3 text-blue-600"
+            onClick={() => handleSelect(res)}
+            key={res}
+          >
+            {toCapitalize(res)}
+          </Button>
+        );
+      })}
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-[1fr_30px_1fr] mt-3">
         <div className="min-h-[50vh]">
           <div className="flex justify-between items-center">
             <h2 className="text-md text-teal-600 font-semibold mb-1">JSON</h2>

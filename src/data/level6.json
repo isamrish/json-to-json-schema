@@ -1,0 +1,15 @@
+{
+  "id": 123,
+  "title": "Sample Post",
+  "isPublished": true,
+  "comments": [
+    {
+      "user": "Alice",
+      "content": "Great post!"
+    },
+    {
+      "user": "Bob",
+      "content": "Very informative."
+    }
+  ]
+}

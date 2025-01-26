@@ -32,4 +32,9 @@ const findOtherProperties = <T extends Record<string, unknown>>(
   return result as Omit<T, typeof knownKey>;
 };
 
-export { cn, isJsonString, findOtherProperties };
+const toCapitalize = (str: string) => {
+  if (typeof str !== "string" || !str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
+
+export { cn, isJsonString, findOtherProperties, toCapitalize };

@@ -1,0 +1,7 @@
+{
+  "productId": 101,
+  "name": "Laptop",
+  "price": 1200.99,
+  "discount": null,
+  "tags": ["electronics", "computer"]
+}

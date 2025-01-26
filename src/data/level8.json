@@ -1,0 +1,24 @@
+{
+  "company": {
+    "name": "TechCorp",
+    "location": {
+      "country": "USA",
+      "city": {
+        "name": "San Francisco",
+        "zipCode": "94107"
+      }
+    },
+    "employees": [
+      {
+        "id": 1,
+        "name": "Alice",
+        "role": "Engineer"
+      },
+      {
+        "id": 2,
+        "name": "Bob",
+        "role": "Manager"
+      }
+    ]
+  }
+}

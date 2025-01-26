@@ -1,0 +1,27 @@
+{
+  "dashboard": {
+    "widgets": [
+      {
+        "type": "chart",
+        "config": {
+          "title": "Sales Overview",
+          "data": [
+            { "month": "January", "sales": 1000 },
+            { "month": "February", "sales": 1200 }
+          ]
+        }
+      },
+      {
+        "type": "table",
+        "config": {
+          "columns": ["Name", "Age", "Role"],
+          "data": [
+            ["Alice", 25, "Engineer"],
+            ["Bob", 30, "Manager"]
+          ]
+        }
+      }
+    ],
+    "lastUpdated": "2025-01-25T12:34:56Z"
+  }
+}
