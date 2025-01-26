@@ -91,7 +91,7 @@ const JsonToJsonSchema = () => {
           </Button>
         );
       })}
-      <div className="grid gap-4 grid-cols-1 lg:grid-cols-[1fr_30px_1fr] mt-3">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-[1fr_20px_1fr] mt-3 ">
         <div className="min-h-[50vh]">
           <div className="flex justify-between items-center">
             <h2 className="text-md text-teal-600 font-semibold mb-1">JSON</h2>
@@ -124,10 +124,10 @@ const JsonToJsonSchema = () => {
             }`}
           />
         </div>
-        <div className="hidden text-purple-500 lg:flex lg:justify-center lg:items-center">
+        <div className="hidden text-purple-500 md:flex lg:justify-center md:items-center">
           <RxDoubleArrowRight size="24" />
         </div>
-        <div className="p-0 order-3 lg:order-2">
+        <div className="p-0 order-4 md:order-3">
           <div className="flex justify-between items-center">
             <h2 className="text-md text-teal-600 font-semibold mb-1">
               JSON Schema
@@ -187,7 +187,7 @@ const JsonToJsonSchema = () => {
             className="rounded-md border-2 bg-gray-500"
           />
         </div>
-        <div className="mt-3 mb-4 flex justify-start items-center order-2 lg:order-3">
+        <div className="mt-3 mb-4 flex justify-start items-center order-3 md:order-4">
           <Button
             variant="default"
             className="mr-4"
