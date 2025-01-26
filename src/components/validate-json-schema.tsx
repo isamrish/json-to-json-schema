@@ -8,9 +8,10 @@ import { StorageContext } from "@/context/storage-context";
 import { SchemaWithData } from "@/types";
 import { PiMagicWand } from "react-icons/pi";
 import { useCommon } from "@/hooks";
+import { getDraftInstance } from "@/lib/draft";
 
 const ValidateJsonSchema = () => {
-  const { editorTheme } = useContext(ConfigContext);
+  const { editorTheme, draft } = useContext(ConfigContext);
   const { handleBeautify } = useCommon();
   const [isError, setIsError] = React.useState(false);
   const [isValidated, setIsValidated] = React.useState(false);
@@ -33,7 +34,7 @@ const ValidateJsonSchema = () => {
 
   const handleValidate = () => {
     const schema: JsonSchema = JSON.parse(data?.validator?.schema ?? "");
-    const jsonSchema = new Draft2019(schema);
+    const jsonSchema = getDraftInstance(draft, schema);
     const _data = JSON.parse(data?.validator?.data ?? "");
     const errors: JsonError[] = jsonSchema.validate(_data);
     setIsError(!!errors?.length);

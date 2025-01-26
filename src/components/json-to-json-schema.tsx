@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useContext } from "react";
 import Editor from "@monaco-editor/react";
-import { Draft07 } from "json-schema-library";
 import { Button } from "@/components/ui/button";
 import { FiCopy } from "react-icons/fi";
 import { AiOutlineClear } from "react-icons/ai";
@@ -10,12 +9,13 @@ import { RxDoubleArrowRight } from "react-icons/rx";
 import { ConfigContext } from "@/context/config-context";
 import { StorageContext } from "@/context/storage-context";
 import { isJsonString, toCapitalize } from "@/lib/utils";
+import { getDraftInstance } from "@/lib/draft";
 import { useCommon } from "@/hooks";
 import levels from "@/data";
 
 const JsonToJsonSchema = () => {
   const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
-  const { editorTheme } = useContext(ConfigContext);
+  const { editorTheme, draft } = useContext(ConfigContext);
   const { data, addItem, removeItem } = useContext(StorageContext) ?? {};
   const { handleBeautify } = useCommon();
 
@@ -40,7 +40,7 @@ const JsonToJsonSchema = () => {
   };
 
   const handleConvert = () => {
-    const jsonSchema = new Draft07();
+    const jsonSchema = getDraftInstance(draft);
     const schema = jsonSchema.createSchemaOf(
       JSON.parse(data?.converter?.data ?? "")
     );
