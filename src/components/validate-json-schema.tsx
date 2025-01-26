@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { ConfigContext } from "@/context/config-context";
 import { isJsonString } from "@/lib/utils";
-import { Draft2019, JsonError, JsonSchema } from "json-schema-library";
+import { JsonError, JsonSchema } from "json-schema-library";
 import { Button } from "@/components/ui/button";
 import { StorageContext } from "@/context/storage-context";
 import { SchemaWithData } from "@/types";
