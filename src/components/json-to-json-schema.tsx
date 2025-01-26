@@ -103,7 +103,7 @@ const JsonToJsonSchema = () => {
               JSON Schema
             </h2>
             {data?.converter?.schema && (
-              <div>
+              <div className="flex">
                 {isJsonString(data?.converter?.schema ?? "") && (
                   <div
                     className="tooltip cursor-pointer text-teal-600 mr-4"
