@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
 const ConfigContext = createContext<{
   theme: string;
@@ -19,25 +20,37 @@ const ConfigContext = createContext<{
 
 const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState("dark");
-  const [editorTheme, setEditorTheme] = useState("vs-dark");
-  const [draft, updateDraft] = useState("draft07");
+  const [value, setValue] = useLocalStorage("config", {
+    draft: "draft07",
+    editorTheme: "vs-dark",
+  });
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
   const updateEditorTheme = (theme: string) => {
-    setEditorTheme(theme);
+    setValue((prev) => ({
+      ...prev,
+      editorTheme: theme,
+    }));
+  };
+
+  const updateDraft = (draft: string) => {
+    setValue((prev) => ({
+      ...prev,
+      draft,
+    }));
   };
 
   return (
     <ConfigContext.Provider
       value={{
         theme,
-        editorTheme,
+        editorTheme: value?.editorTheme,
         toggleTheme,
         updateEditorTheme,
-        draft,
+        draft: value?.draft,
         updateDraft,
       }}
     >

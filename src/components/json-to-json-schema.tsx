@@ -2,8 +2,7 @@
 import React, { useEffect, useContext } from "react";
 import Editor from "@monaco-editor/react";
 import { Button } from "@/components/ui/button";
-import { FiCopy } from "react-icons/fi";
-import { AiOutlineClear } from "react-icons/ai";
+import { Clipboard, Check, Eraser } from "lucide-react";
 import { PiMagicWand } from "react-icons/pi";
 import { RxDoubleArrowRight } from "react-icons/rx";
 import { ConfigContext } from "@/context/config-context";
@@ -12,6 +11,7 @@ import { isJsonString, toCapitalize } from "@/lib/utils";
 import { getDraftInstance } from "@/lib/draft";
 import { useCommon } from "@/hooks";
 import levels from "@/data";
+import { JTooltip } from "./tooltip";
 
 const JsonToJsonSchema = () => {
   const [isCopiedToClipboard, setIsCopiedToClipboard] = React.useState(false);
@@ -124,42 +124,58 @@ const JsonToJsonSchema = () => {
             {data?.converter?.schema && (
               <div className="flex">
                 {isJsonString(data?.converter?.schema ?? "") && (
-                  <div
-                    className="tooltip cursor-pointer text-teal-600 mr-4"
-                    data-tip="Beautify"
-                    onClick={() =>
-                      handleBeautify(
-                        "converter.schema",
-                        data?.converter?.schema
-                      )
+                  <JTooltip
+                    title="Beautify"
+                    trigger={
+                      <div
+                        className="tooltip cursor-pointer text-teal-600 mr-4"
+                        data-tip="Beautify"
+                        onClick={() =>
+                          handleBeautify(
+                            "converter.schema",
+                            data?.converter?.schema
+                          )
+                        }
+                      >
+                        <PiMagicWand size={22} />
+                      </div>
                     }
-                  >
-                    <PiMagicWand size={22} />
-                  </div>
+                  />
                 )}
-                <div
-                  className="tooltip cursor-pointer text-teal-600 mr-4"
-                  data-tip="Clear"
-                  onClick={() => {
-                    removeItem?.({ keyPath: "converter.schema" });
-                  }}
-                >
-                  <AiOutlineClear size={22} />
-                </div>
-                <div
-                  className="tooltip cursor-pointer text-teal-600"
-                  data-tip={
-                    isCopiedToClipboard ? "Copied" : "Copy to clipboard"
+
+                <JTooltip
+                  title="Clear"
+                  trigger={
+                    <div
+                      className="tooltip cursor-pointer text-teal-600 mr-4"
+                      onClick={() => {
+                        removeItem?.({ keyPath: "converter.schema" });
+                      }}
+                    >
+                      <Eraser size={18} />
+                    </div>
                   }
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      data?.converter?.schema ?? ""
-                    );
-                    setIsCopiedToClipboard(true);
-                  }}
-                >
-                  <FiCopy size={18} />
-                </div>
+                />
+                <JTooltip
+                  title={isCopiedToClipboard ? "Copied" : "Copy to clipboard"}
+                  trigger={
+                    <div
+                      className="tooltip cursor-pointer text-teal-600"
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          data?.converter?.schema ?? ""
+                        );
+                        setIsCopiedToClipboard(true);
+                      }}
+                    >
+                      {isCopiedToClipboard ? (
+                        <Check size={18} />
+                      ) : (
+                        <Clipboard size={18} />
+                      )}
+                    </div>
+                  }
+                />
               </div>
             )}
           </div>
