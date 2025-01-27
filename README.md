@@ -2,6 +2,10 @@
 
 A simple, web-based tool for converting JSON objects into their corresponding JSON Schema definitions. Built to save time and reduce effort when working with JSON data validation. Also, it supports the validation of JSON Schema against JSON objects.
 
+<img width="1680" alt="image" src="https://github.com/user-attachments/assets/5a487247-30b6-41d0-aca4-f380b023d05d" />
+
+<img width="1680" alt="image" src="https://github.com/user-attachments/assets/f1f86665-6668-4be6-a2e8-5b250316a10c" />
+
 [**Live Demo**](https://json-to-json-schema.vercel.app/)
 
 ---
@@ -76,11 +80,6 @@ The optimized build will be created in the `build/` directory.
 ## 🌍 Live Demo
 
 Check out the live version of the tool here: [https://json-to-json-schema.vercel.app/](https://json-to-json-schema.vercel.app/)  
-
-
-## Screenshots
-
-<img width="1680" alt="image" src="https://github.com/user-attachments/assets/5a487247-30b6-41d0-aca4-f380b023d05d" />
 
 
 ---
