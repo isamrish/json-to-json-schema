@@ -39,7 +39,7 @@ A simple, web-based tool for converting JSON objects into their corresponding JS
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/yourusername/json-to-json-schema.git
+   git clone https://github.com/isamrish/json-to-json-schema.git
    cd json-to-json-schema
    ```  
 
