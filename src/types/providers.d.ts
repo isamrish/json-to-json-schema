@@ -20,3 +20,8 @@ export interface StorageContextType {
   ) => void;
   flush: () => void;
 }
+
+export interface Data {
+  label: string;
+  data: Record<string, unknown>;
+}

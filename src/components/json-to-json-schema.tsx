@@ -54,7 +54,7 @@ const JsonToJsonSchema = () => {
   };
 
   const handleSelect = (res: string) => {
-    addItem?.("converter.data", JSON.stringify(levels[res], null, 2));
+    addItem?.("converter.data", JSON.stringify(levels[res]?.data, null, 2));
     removeItem?.({ keyPath: "converter.schema" });
   };
 
@@ -68,18 +68,7 @@ const JsonToJsonSchema = () => {
 
   return (
     <div className="mt-0">
-      {[
-        "level1",
-        "level2",
-        "level3",
-        "level4",
-        "level5",
-        "level6",
-        "level7",
-        "level8",
-        "level9",
-        "level10",
-      ]?.map((res) => {
+      {Object?.keys(levels)?.map((res) => {
         return (
           <Button
             variant="outline"
@@ -87,7 +76,7 @@ const JsonToJsonSchema = () => {
             onClick={() => handleSelect(res)}
             key={res}
           >
-            {toCapitalize(res)}
+            {toCapitalize(levels[res]?.label)}
           </Button>
         );
       })}
