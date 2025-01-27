@@ -113,8 +113,3 @@ Have an idea or found a bug? Please [open an issue](https://github.com/isamrish/
 
 This project is licensed under the [MIT License](LICENSE).  
 
----
-
-## 🙏 Acknowledgments
-
-- Made with ❤️ by [Amrish](https://github.com/isamrish).  
