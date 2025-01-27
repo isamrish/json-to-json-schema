@@ -2,7 +2,7 @@
 
 A simple, web-based tool for converting JSON objects into their corresponding JSON Schema definitions. Built to save time and reduce effort when working with JSON data validation. Also, it supports the validation of JSON Schema against JSON objects.
 
-<img width="1680" alt="image" src="https://github.com/user-attachments/assets/dc4e5b2a-4c9e-4d46-9826-9609d7480f54" />
+<img width="1680" alt="image" src="https://github.com/user-attachments/assets/2660c45e-44dc-40e7-b5d9-542e65f82429" />
 
 <img width="1680" alt="image" src="https://github.com/user-attachments/assets/f1f86665-6668-4be6-a2e8-5b250316a10c" />
 
